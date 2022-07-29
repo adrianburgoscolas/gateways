@@ -15,10 +15,20 @@ app.get("/", (_, res) => {
   res.send("hola");
 });
 
-app.post("/api/setgateway", (req, res) => {
-  const gw = req.body;
-
-  res.json(gw);
+//API entry point to add a new gateway without periferals.
+//data format JSON
+//{
+//  serial: String
+//  name: String
+//  ipv4: String
+//}
+app.post("/api/addgateway", async (req, res) => {
+  try {
+    const newGateway = await db.AddGateway(req.body);
+    res.status(201).json(newGateway);
+  } catch (err) {
+    res.status(500).send(err);
+  }
 });
 
 //Not Found

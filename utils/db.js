@@ -8,6 +8,7 @@ mongoose.connect(process.env.MONGO_URI, {
 
 const { Schema } = mongoose;
 
+//DB data structure
 const GatewaySchema = new Schema({
   gatewayserial: String,
   gatewayname: String,
@@ -24,23 +25,19 @@ const GatewaySchema = new Schema({
 
 const Gateway = mongoose.model("gateways", GatewaySchema);
 
+//DB handler
 class GatewaysDB {
   constructor(gateway) {
     this._gateway = gateway;
   }
-  async SetGateway(gw) {
+
+  //AddGateway add a gateway entry to DB.
+  async AddGateway(gw) {
     const newGateway = new this._gateway({
       gatewayserial: gw.serial,
       gatewayname: gw.name,
       ipv4: gw.ipv4,
-      periferals: [
-        {
-          uid: 0,
-          vendor: "",
-          datecreated: "",
-          status: "",
-        },
-      ],
+      periferals: [],
     });
     const newDbEntry = await newGateway.save();
     return newDbEntry;
