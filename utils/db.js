@@ -60,17 +60,35 @@ class GatewaysDB {
     throw new GatewayError("Gateway already exist", 500);
   }
 
-  //AddPeriferal adds a periferal device to a gateway in DB.
+  //AddPeriferal add a periferal device to a gateway in DB.
   async AddPeriferal(gatewaySerial, periferal) {
-    try {
-      const foundedGateway = this.GetGateway(gatewaySerial);
-      if (foundedGateway.periferals.length >= 10) {
-        throw new GatewayError(
-          "There are to many periferals in this gateway",
-          500
-        );
-      }
-    } catch (err) {}
+    const foundedGateway = await this.GetGateway(gatewaySerial);
+    if (foundedGateway.periferals.length >= 10) {
+      throw new GatewayError(
+        "There are to many periferals in this gateway",
+        500
+      );
+    }
+    if (
+      foundedGateway.periferals
+        .map((periferal) => periferal.uid)
+        .indexOf(periferal.uid) !== -1
+    ) {
+      throw new GatewayError("Periferal already exist in this gateway", 500);
+    }
+    const updatedGateway = await this._gateway.findOneAndUpdate(
+      { _id: foundedGateway._id },
+      {
+        $push: {
+          periferals: {
+            ...periferal,
+            datecreated: new Date().toLocaleString(),
+          },
+        },
+      },
+      { new: true }
+    );
+    return updatedGateway;
   }
 }
 const db = new GatewaysDB(Gateway);

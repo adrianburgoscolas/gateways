@@ -47,10 +47,37 @@ app.get("/api/getgateway", async (req, res) => {
     const gw = await db.GetGateway(req.body.serial);
     res.status(200).json(gw);
   } catch (err) {
-    res.status(500).send("Error: " + err.message);
+    res.status(err.status).send("Error: " + err.message);
   }
 });
 
+//API entry point to add a new periferal to a given gateway.
+//data format JSON
+//{
+//  gatewaySerial: String,
+//  periferal: {
+//    uid: Number,
+//    vendor: String,
+//    datecreated: String,
+//    status: String
+//  }
+//}
+app.post("/api/addperiferal", async (req, res) => {
+  try {
+    //implementing ValidatePeriferal()
+    const updatedGateway = await db.AddPeriferal(
+      req.body.gatewaySerial,
+      req.body.periferal
+    );
+    res.status(201).json(updatedGateway);
+  } catch (err) {
+    if (err instanceof GatewayError) {
+      res.status(err.status).send("Error: " + err.message);
+      return;
+    }
+    throw err;
+  }
+});
 //Not Found
 app.use("/", (_, res) => {
   res.status(404).send("Not Found");
