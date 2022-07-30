@@ -23,6 +23,7 @@ app.get("/", (_, res) => {
 //  ipv4: String
 //}
 app.post("/api/addgateway", async (req, res) => {
+  validateData(req.body);
   try {
     const newGateway = await db.AddGateway(req.body);
     res.status(201).json(newGateway);
