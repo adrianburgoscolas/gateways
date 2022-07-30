@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const db = require("./utils/db");
+const { ValidateGateway } = require("./utils/helpers");
 
 require("dotenv").config();
 
@@ -23,7 +24,12 @@ app.get("/", (_, res) => {
 //  ipv4: String
 //}
 app.post("/api/addgateway", async (req, res) => {
-  validateData(req.body);
+  try {
+    ValidateGateway(req.body);
+  } catch (err) {
+    res.status(400).send("Error: " + err.message);
+    return;
+  }
   try {
     const newGateway = await db.AddGateway(req.body);
     res.status(201).json(newGateway);
