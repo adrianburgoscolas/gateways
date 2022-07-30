@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const db = require("./utils/db");
-const { ValidateGateway } = require("./utils/helpers");
+const { ValidateGateway, GatewayError } = require("./utils/helpers");
 
 require("dotenv").config();
 
@@ -26,19 +26,18 @@ app.get("/", (_, res) => {
 app.post("/api/addgateway", async (req, res) => {
   try {
     ValidateGateway(req.body);
-  } catch (err) {
-    res.status(400).send("Error: " + err.message);
-    return;
-  }
-  try {
     const newGateway = await db.AddGateway(req.body);
     res.status(201).json(newGateway);
   } catch (err) {
-    res.status(500).send("Error: " + err.message);
+    if (err instanceof GatewayError) {
+      res.status(err.status).send("Error: " + err.message);
+      return;
+    }
+    throw err;
   }
 });
 
-//API entry point to get a gateway.
+//API entry point to get a gateway's info.
 //data format JSON
 //{
 //  serial: String

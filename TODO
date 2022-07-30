@@ -1,2 +1,10 @@
+- add addgateway api DONE
+- add getgateway api DONE
+- add addperiferal api
+- add getallgateways api
+- add delgateway api
+- add delpreiferal api
+- add ValidateGateway function DONE
+- add ValidatePeriferal function
 - edit manifest.json
 - add app logo and favicon to public dir

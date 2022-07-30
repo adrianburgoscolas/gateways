@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { GatewayError } = require("./helpers");
 require("dotenv").config();
 
 mongoose.connect(process.env.MONGO_URI, {
@@ -39,7 +40,7 @@ class GatewaysDB {
     if (foundedGateway) {
       return foundedGateway;
     }
-    throw new Error("Gateway not found");
+    throw new GatewayError("Gateway not found", 500);
   }
 
   //AddGateway add a gateway entry to DB.
@@ -56,7 +57,20 @@ class GatewaysDB {
       const newDbEntry = await newGateway.save();
       return newDbEntry;
     }
-    throw new Error("Gateway already exist");
+    throw new GatewayError("Gateway already exist", 500);
+  }
+
+  //AddPeriferal adds a periferal device to a gateway in DB.
+  async AddPeriferal(gatewaySerial, periferal) {
+    try {
+      const foundedGateway = this.GetGateway(gatewaySerial);
+      if (foundedGateway.periferals.length >= 10) {
+        throw new GatewayError(
+          "There are to many periferals in this gateway",
+          500
+        );
+      }
+    } catch (err) {}
   }
 }
 const db = new GatewaysDB(Gateway);
