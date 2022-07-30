@@ -18,8 +18,8 @@ app.get("/", (_, res) => {
 //API entry point to add a new gateway without periferals.
 //data format JSON
 //{
-//  serial: String
-//  name: String
+//  gatewaySerial: String,
+//  gatewayName: String,
 //  ipv4: String
 //}
 app.post("/api/addgateway", async (req, res) => {
@@ -27,7 +27,21 @@ app.post("/api/addgateway", async (req, res) => {
     const newGateway = await db.AddGateway(req.body);
     res.status(201).json(newGateway);
   } catch (err) {
-    res.status(500).send(err);
+    res.status(500).send("Error: " + err.message);
+  }
+});
+
+//API entry point to get a gateway.
+//data format JSON
+//{
+//  serial: String
+//}
+app.get("/api/getgateway", async (req, res) => {
+  try {
+    const gw = await db.GetGateway(req.body.serial);
+    res.status(200).json(gw);
+  } catch (err) {
+    res.status(500).send("Error: " + err.message);
   }
 });
 

@@ -31,16 +31,32 @@ class GatewaysDB {
     this._gateway = gateway;
   }
 
+  //GetGateway gets a gateway entry from DB.
+  async GetGateway(serial) {
+    const foundedGateway = await this._gateway.findOne({
+      gatewayserial: serial,
+    });
+    if (foundedGateway) {
+      return foundedGateway;
+    }
+    throw new Error("Gateway not found");
+  }
+
   //AddGateway add a gateway entry to DB.
   async AddGateway(gw) {
-    const newGateway = new this._gateway({
-      gatewayserial: gw.serial,
-      gatewayname: gw.name,
-      ipv4: gw.ipv4,
-      periferals: [],
-    });
-    const newDbEntry = await newGateway.save();
-    return newDbEntry;
+    try {
+      await this.GetGateway(gw.gatewaySerial);
+    } catch (err) {
+      const newGateway = new this._gateway({
+        gatewayserial: gw.gatewaySerial,
+        gatewayname: gw.gatewayName,
+        ipv4: gw.ipv4,
+        periferals: [],
+      });
+      const newDbEntry = await newGateway.save();
+      return newDbEntry;
+    }
+    throw new Error("Gateway already exist");
   }
 }
 const db = new GatewaysDB(Gateway);
