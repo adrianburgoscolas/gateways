@@ -44,11 +44,14 @@ app.post("/api/addgateway", async (req, res) => {
 //API entry point to get a gateway's info.
 //data format JSON
 //{
-//  serial: String
+//  gatewaySerial: String
 //}
 app.get("/api/getgateway", async (req, res) => {
   try {
-    const gw = await db.GetGateway(req.body.serial);
+    if (!req.body.gatewaySerial || typeof req.body.gatewaySerial !== "string") {
+      throw new GatewayError("Missing Gateway Data", 400);
+    }
+    const gw = await db.GetGateway(req.body.gatewaySerial);
     res.status(200).json(gw);
   } catch (err) {
     res.status(err.status).send("Error: " + err.message);
@@ -68,20 +71,37 @@ app.get("/api/getgateway", async (req, res) => {
 //assuming the device "date created" field is the date
 //the device was added to its gateway in the db,
 //so this field is generated in the server
-app.post("/api/adddevice", async (req, res) => {
+app.put("/api/adddevice", async (req, res) => {
   try {
     ValidateDevice(req.body.device);
     const updatedGateway = await db.AddDevice(
       req.body.gatewaySerial,
       req.body.device
     );
-    res.status(201).json(updatedGateway);
+    res.status(200).json(updatedGateway);
   } catch (err) {
     if (err instanceof GatewayError) {
       res.status(err.status).send("Error: " + err.message);
       return;
     }
     throw err;
+  }
+});
+
+//API entry point to del a gateway.
+//data format JSON
+//{
+//  gatewaySerial: String
+//}
+app.delete("/api/delgateway", async (req, res) => {
+  try {
+    if (!req.body.gatewaySerial || typeof req.body.gatewaySerial !== "string") {
+      throw new GatewayError("Missing Gateway Data", 400);
+    }
+    const deletedGateway = await db.DelGateway(req.body.gatewaySerial);
+    res.status(200).json(deletedGateway);
+  } catch (err) {
+    res.status(err.status).send("Error: " + err.message);
   }
 });
 

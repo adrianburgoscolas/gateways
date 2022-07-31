@@ -40,7 +40,7 @@ class GatewaysDB {
     if (foundedGateway) {
       return foundedGateway;
     }
-    throw new GatewayError("Gateway not found", 500);
+    throw new GatewayError("Gateway not found", 404);
   }
 
   //AddGateway add a gateway entry to DB.
@@ -57,20 +57,20 @@ class GatewaysDB {
       const newDbEntry = await newGateway.save();
       return newDbEntry;
     }
-    throw new GatewayError("Gateway already exist", 500);
+    throw new GatewayError("Gateway already exist", 409);
   }
 
   //AddDevice add a device device to a gateway in DB.
   async AddDevice(gatewaySerial, device) {
     const foundedGateway = await this.GetGateway(gatewaySerial);
     if (foundedGateway.devices.length >= 10) {
-      throw new GatewayError("There are to many devices in this gateway", 500);
+      throw new GatewayError("There are to many devices in this gateway", 409);
     }
     if (
       foundedGateway.devices.map((device) => device.uid).indexOf(device.uid) !==
       -1
     ) {
-      throw new GatewayError("Device already exist in this gateway", 500);
+      throw new GatewayError("Device already exist in this gateway", 409);
     }
     const updatedGateway = await this._gateway.findOneAndUpdate(
       { _id: foundedGateway._id },
@@ -85,6 +85,17 @@ class GatewaysDB {
       { new: true }
     );
     return updatedGateway;
+  }
+
+  //DelGateway delete a gateway from DB.
+  async DelGateway(serial) {
+    const deletedGateway = await this._gateway.findOneAndDelete({
+      gatewayserial: serial,
+    });
+    if (deletedGateway) {
+      return deletedGateway;
+    }
+    throw new GatewayError("Gateway not found", 404);
   }
 }
 const db = new GatewaysDB(Gateway);
