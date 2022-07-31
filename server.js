@@ -124,6 +124,7 @@ app.put("/api/deldevice", async (req, res) => {
     if (
       !req.body.gatewaySerial ||
       typeof req.body.gatewaySerial !== "string" ||
+      !req.body.device ||
       !req.body.device.uid ||
       typeof req.body.device.uid !== "number"
     ) {
@@ -134,6 +135,28 @@ app.put("/api/deldevice", async (req, res) => {
       req.body.device.uid
     );
     res.status(200).json(updatedGateway);
+  } catch (err) {
+    if (err instanceof GatewayError) {
+      res.status(err.status).send("Error: " + err.message);
+      return;
+    }
+    throw err;
+  }
+});
+
+//API entry point to list all gateways.
+//Returns an array of gateway objects with basic info
+app.get("/api/getallgateways", async (_, res) => {
+  try {
+    const gatewaysArr = await db.GetAllGateways();
+    const resultGatewayArr = gatewaysArr.map((gateway) => {
+      return {
+        gatewaySerial: gateway.gatewayserial,
+        gatewayName: gateway.gatewayname,
+        associatedDevices: gateway.devices.length,
+      };
+    });
+    res.status(200).json(resultGatewayArr);
   } catch (err) {
     if (err instanceof GatewayError) {
       res.status(err.status).send("Error: " + err.message);

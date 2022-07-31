@@ -115,6 +115,16 @@ class GatewaysDB {
     );
     return updatedGateway;
   }
+
+  //GetAllGateways list all gateways in the DB.
+  async GetAllGateways() {
+    try {
+      const gatewaysArr = await this._gateway.find();
+      return gatewaysArr;
+    } catch (err) {
+      throw new GatewayError("Can not list all Gateways", 404);
+    }
+  }
 }
 const db = new GatewaysDB(Gateway);
 module.exports = db;
