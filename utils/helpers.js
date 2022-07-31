@@ -40,7 +40,7 @@ function ValidateDevice(device) {
   ) {
     throw new GatewayError("Missing Device Data", 400);
   }
-  if (!/online|offline/i.test(device.status)) {
+  if (!/online|offline/.test(device.status)) {
     throw new GatewayError("Bad Device Status", 400);
   }
   if (typeof device.uid !== "number") {
