@@ -14,7 +14,7 @@ const GatewaySchema = new Schema({
   gatewayserial: String,
   gatewayname: String,
   ipv4: String,
-  periferals: [
+  devices: [
     {
       uid: Number,
       vendor: String,
@@ -52,7 +52,7 @@ class GatewaysDB {
         gatewayserial: gw.gatewaySerial,
         gatewayname: gw.gatewayName,
         ipv4: gw.ipv4,
-        periferals: [],
+        devices: [],
       });
       const newDbEntry = await newGateway.save();
       return newDbEntry;
@@ -60,28 +60,24 @@ class GatewaysDB {
     throw new GatewayError("Gateway already exist", 500);
   }
 
-  //AddPeriferal add a periferal device to a gateway in DB.
-  async AddPeriferal(gatewaySerial, periferal) {
+  //AddDevice add a device device to a gateway in DB.
+  async AddDevice(gatewaySerial, device) {
     const foundedGateway = await this.GetGateway(gatewaySerial);
-    if (foundedGateway.periferals.length >= 10) {
-      throw new GatewayError(
-        "There are to many periferals in this gateway",
-        500
-      );
+    if (foundedGateway.devices.length >= 10) {
+      throw new GatewayError("There are to many devices in this gateway", 500);
     }
     if (
-      foundedGateway.periferals
-        .map((periferal) => periferal.uid)
-        .indexOf(periferal.uid) !== -1
+      foundedGateway.devices.map((device) => device.uid).indexOf(device.uid) !==
+      -1
     ) {
-      throw new GatewayError("Periferal already exist in this gateway", 500);
+      throw new GatewayError("Device already exist in this gateway", 500);
     }
     const updatedGateway = await this._gateway.findOneAndUpdate(
       { _id: foundedGateway._id },
       {
         $push: {
-          periferals: {
-            ...periferal,
+          devices: {
+            ...device,
             datecreated: new Date().toLocaleString(),
           },
         },

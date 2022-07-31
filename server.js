@@ -2,7 +2,11 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const db = require("./utils/db");
-const { ValidateGateway, GatewayError } = require("./utils/helpers");
+const {
+  ValidateGateway,
+  ValidateDevice,
+  GatewayError,
+} = require("./utils/helpers");
 
 require("dotenv").config();
 
@@ -16,7 +20,7 @@ app.get("/", (_, res) => {
   res.send("hola");
 });
 
-//API entry point to add a new gateway without periferals.
+//API entry point to add a new gateway without devices.
 //data format JSON
 //{
 //  gatewaySerial: String,
@@ -51,23 +55,25 @@ app.get("/api/getgateway", async (req, res) => {
   }
 });
 
-//API entry point to add a new periferal to a given gateway.
+//API entry point to add a new device to a given gateway.
 //data format JSON
 //{
 //  gatewaySerial: String,
-//  periferal: {
+//  device: {
 //    uid: Number,
 //    vendor: String,
-//    datecreated: String,
 //    status: String
 //  }
 //}
-app.post("/api/addperiferal", async (req, res) => {
+//assuming the device "date created" field is the date
+//the device was added to its gateway in the db,
+//so this field is generated in the server
+app.post("/api/adddevice", async (req, res) => {
   try {
-    //implementing ValidatePeriferal()
-    const updatedGateway = await db.AddPeriferal(
+    ValidateDevice(req.body.device);
+    const updatedGateway = await db.AddDevice(
       req.body.gatewaySerial,
-      req.body.periferal
+      req.body.device
     );
     res.status(201).json(updatedGateway);
   } catch (err) {
@@ -78,6 +84,7 @@ app.post("/api/addperiferal", async (req, res) => {
     throw err;
   }
 });
+
 //Not Found
 app.use("/", (_, res) => {
   res.status(404).send("Not Found");

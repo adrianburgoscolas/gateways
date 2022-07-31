@@ -6,6 +6,7 @@ class GatewayError extends Error {
   }
 }
 
+//ValidateGateway validate gateway data sent by an user/app
 function ValidateGateway(gateway) {
   if (!gateway.gatewaySerial || !gateway.gatewayName || !gateway.ipv4) {
     throw new GatewayError("Missing Gateway Data", 400);
@@ -21,5 +22,19 @@ function ValidateGateway(gateway) {
   });
 }
 
+//ValidateDevice validate device data sent by an user/app
+function ValidateDevice(device) {
+  if (!device.uid || !device.vendor || !device.status) {
+    throw new GatewayError("Missing Device Data", 400);
+  }
+  if (!/online|offline/i.test(device.status)) {
+    throw new GatewayError("Bad Device Status", 400);
+  }
+  if (typeof device.uid !== "number") {
+    throw new GatewayError("Bad Device UID", 400);
+  }
+}
+
 module.exports.ValidateGateway = ValidateGateway;
 module.exports.GatewayError = GatewayError;
+module.exports.ValidateDevice = ValidateDevice;
