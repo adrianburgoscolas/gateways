@@ -54,7 +54,11 @@ app.get("/api/getgateway", async (req, res) => {
     const gw = await db.GetGateway(req.body.gatewaySerial);
     res.status(200).json(gw);
   } catch (err) {
-    res.status(err.status).send("Error: " + err.message);
+    if (err instanceof GatewayError) {
+      res.status(err.status).send("Error: " + err.message);
+      return;
+    }
+    throw err;
   }
 });
 
@@ -101,7 +105,41 @@ app.delete("/api/delgateway", async (req, res) => {
     const deletedGateway = await db.DelGateway(req.body.gatewaySerial);
     res.status(200).json(deletedGateway);
   } catch (err) {
-    res.status(err.status).send("Error: " + err.message);
+    if (err instanceof GatewayError) {
+      res.status(err.status).send("Error: " + err.message);
+      return;
+    }
+    throw err;
+  }
+});
+
+//API entry point to del a device from a gateway.
+//data format JSON
+//{
+//  gatewaySerial: String,
+//  device: {uid: Number}
+//}
+app.put("/api/deldevice", async (req, res) => {
+  try {
+    if (
+      !req.body.gatewaySerial ||
+      typeof req.body.gatewaySerial !== "string" ||
+      !req.body.device.uid ||
+      typeof req.body.device.uid !== "number"
+    ) {
+      throw new GatewayError("Missing Gateway Data", 400);
+    }
+    const updatedGateway = await db.DelDevice(
+      req.body.gatewaySerial,
+      req.body.device.uid
+    );
+    res.status(200).json(updatedGateway);
+  } catch (err) {
+    if (err instanceof GatewayError) {
+      res.status(err.status).send("Error: " + err.message);
+      return;
+    }
+    throw err;
   }
 });
 

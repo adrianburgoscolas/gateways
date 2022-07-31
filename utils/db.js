@@ -97,6 +97,24 @@ class GatewaysDB {
     }
     throw new GatewayError("Gateway not found", 404);
   }
+
+  //DelDevice delete a given device from a given gateway.
+  async DelDevice(gatewaySerial, uid) {
+    const foundedGateway = await this.GetGateway(gatewaySerial);
+    const deviceIndex = foundedGateway.devices
+      .map((device) => device.uid)
+      .indexOf(uid);
+    if (deviceIndex === -1) {
+      throw new GatewayError("Device Not Found", 404);
+    }
+    foundedGateway.devices.splice(deviceIndex, 1);
+    const updatedGateway = await this._gateway.findOneAndUpdate(
+      { _id: foundedGateway._id },
+      { devices: foundedGateway.devices },
+      { new: true }
+    );
+    return updatedGateway;
+  }
 }
 const db = new GatewaysDB(Gateway);
 module.exports = db;

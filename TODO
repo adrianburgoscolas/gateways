@@ -1,10 +1,13 @@
+Backend
 - add addgateway api DONE
 - add getgateway api DONE
 - add adddevice api DONE
 - add getallgateways api
-- add delgateway api
-- add deldevice api
+- add delgateway api DONE
+- add deldevice api DONE
 - add ValidateGateway function DONE
 - add ValidateDevice function DONE
+
+Frontend
 - edit manifest.json
 - add app logo and favicon to public dir
