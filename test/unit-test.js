@@ -1,6 +1,10 @@
 //Unit Testing.
 const { expect } = require("chai");
-const { GatewayError, ValidateGateway } = require("../utils/helpers");
+const {
+  GatewayError,
+  ValidateGateway,
+  ValidateDevice,
+} = require("../utils/helpers");
 const badIpv4Arr = [
   "192.168.1.",
   ".168.1.1",
@@ -77,6 +81,68 @@ const gatewayArr = [
     ipv4: "119.153.205.179",
   },
 ];
+const deviceArr = [
+  {
+    uid: 588,
+    vendor: "Pitcairn",
+    status: "online",
+  },
+  {
+    uid: 567,
+    vendor: "Luxembourg",
+    status: "online",
+  },
+  {
+    uid: 727,
+    vendor: "Sierra Leone",
+    status: "online",
+  },
+  {
+    uid: 406,
+    vendor: "Nigeria",
+    status: "online",
+  },
+  {
+    uid: 213,
+    vendor: "Slovakia",
+    status: "online",
+  },
+  {
+    uid: 908,
+    vendor: "Czech Republic",
+    status: "offline",
+  },
+  {
+    uid: 249,
+    vendor: "Timor-Leste",
+    status: "offline",
+  },
+  {
+    uid: 460,
+    vendor: "Canada",
+    status: "online",
+  },
+  {
+    uid: 529,
+    vendor: "Macedonia",
+    status: "online",
+  },
+  {
+    uid: 78,
+    vendor: 'Cote D"Ivoire',
+    status: "online",
+  },
+  {
+    uid: 194,
+    vendor: "Pitcairn",
+    status: "offline",
+  },
+  {
+    uid: 67,
+    vendor: "Montserrat",
+    status: "offline",
+  },
+];
 describe("Unit Test", () => {
   describe("Testing service custom error 'GatewayError'", () => {
     it("A new 'Error' object is not an instance of 'GatewayError'", () => {
@@ -91,29 +157,29 @@ describe("Unit Test", () => {
       expect(new GatewayError()).to.instanceof(GatewayError);
     });
 
-    it("A new 'GatewayError' object should have a 'message' property which value type is a 'string'", () => {
+    it("A new 'GatewayError' object should has a 'message' property which value type is a 'string'", () => {
       expect(new GatewayError("Gateway Error", 500))
         .to.have.property("message")
         .that.is.a("string");
     });
 
-    it("A new 'GatewayError' object should have a 'status' property which value type is a 'number'", () => {
+    it("A new 'GatewayError' object should has a 'status' property which value type is a 'number'", () => {
       expect(new GatewayError("Gateway Error", 500))
         .to.have.own.property("status")
         .that.is.a("number");
     });
   });
 
-  describe("Testing 'ValidateGateway' function", () => {
+  describe("Testing 'ValidateGateway function' function", () => {
     //input object structure:
     //{
     // gatewaySerial: String,
     // gatewayName: String,
     // ipv4: (valid ipv4 address) String
     //}
-    describe("ValidateGateway should throw an error if:", () => {
-      //ValidateGateway should throw an error if input object has a missing property
-      it("Input object have no 'gatewaySerial' property", () => {
+    describe("ValidateGateway function should throw an error if:", () => {
+      //ValidateGateway function should throw an error if input object has a missing property
+      it("Input object has no 'gatewaySerial' property", () => {
         const input = {
           gatewayName: "Control-1",
           ipv4: "192.168.1.1",
@@ -122,7 +188,7 @@ describe("Unit Test", () => {
           ValidateGateway(input);
         }).to.throw("Missing Gateway Data");
       });
-      it("Input object have no 'gatewayName' property", () => {
+      it("Input object has no 'gatewayName' property", () => {
         const input = {
           gatewaySerial: "123",
           ipv4: "192.168.1.1",
@@ -131,7 +197,7 @@ describe("Unit Test", () => {
           ValidateGateway(input);
         }).to.throw("Missing Gateway Data");
       });
-      it("Input object have no 'ipv4' property", () => {
+      it("Input object has no 'ipv4' property", () => {
         const input = {
           gatewaySerial: "123",
           gatewayName: "Control-1",
@@ -141,8 +207,8 @@ describe("Unit Test", () => {
         }).to.throw("Missing Gateway Data");
       });
 
-      //ValidateGateway should throw an error if input object has an empty value
-      it("Input object have empty 'gatewaySerial' value", () => {
+      //ValidateGateway function should throw an error if input object has an empty value
+      it("Input object has empty 'gatewaySerial' value", () => {
         const input = {
           gatewaySerial: "",
           gatewayName: "Control-1",
@@ -152,7 +218,7 @@ describe("Unit Test", () => {
           ValidateGateway(input);
         }).to.throw("Missing Gateway Data");
       });
-      it("Input object have empty 'gatewayName' value", () => {
+      it("Input object has empty 'gatewayName' value", () => {
         const input = {
           gatewaySerial: "123",
           gatewayName: "",
@@ -162,7 +228,7 @@ describe("Unit Test", () => {
           ValidateGateway(input);
         }).to.throw("Missing Gateway Data");
       });
-      it("Input object have empty 'ipv4' value", () => {
+      it("Input object has empty 'ipv4' value", () => {
         const input = {
           gatewaySerial: "123",
           gatewayName: "Control-1",
@@ -173,8 +239,8 @@ describe("Unit Test", () => {
         }).to.throw("Missing Gateway Data");
       });
 
-      //ValidateGateway should throw an error if input object has an value data type
-      it("Input object have wrong 'gatewaySerial' value data type", () => {
+      //ValidateGateway function should throw an error if input object has an wrong value data type
+      it("Input object has wrong 'gatewaySerial' value data type", () => {
         const input = {
           gatewaySerial: 2,
           gatewayName: "Control-1",
@@ -184,7 +250,7 @@ describe("Unit Test", () => {
           ValidateGateway(input);
         }).to.throw("Missing Gateway Data");
       });
-      it("Input object have wrong 'gatewayName' value data type", () => {
+      it("Input object has wrong 'gatewayName' value data type", () => {
         const input = {
           gatewaySerial: "2",
           gatewayName: 1,
@@ -194,7 +260,7 @@ describe("Unit Test", () => {
           ValidateGateway(input);
         }).to.throw("Missing Gateway Data");
       });
-      it("Input object have wrong 'gatewaySerial' value data type", () => {
+      it("Input object has wrong 'gatewaySerial' value data type", () => {
         const input = {
           gatewaySerial: "2",
           gatewayName: "Control-1",
@@ -205,7 +271,7 @@ describe("Unit Test", () => {
         }).to.throw("Missing Gateway Data");
       });
 
-      //ValidateGateway should throw an error if input object has bad ipv4 address string
+      //ValidateGateway function should throw an error if input object has bad ipv4 address string
       badIpv4Arr.forEach((badIp) => {
         it(`Input object has a bad ipv4 address string: ${badIp}`, () => {
           const input = {
@@ -218,7 +284,9 @@ describe("Unit Test", () => {
         });
       });
     });
-    describe("ValidateGateway should not throw an error if:", () => {
+
+    //ValidateGateway function should not throw error if input object is good
+    describe("ValidateGateway function should not throw an error if:", () => {
       gatewayArr.forEach((gateway) => {
         it(`Input a valid gateway object: ${JSON.stringify(gateway)}`, () => {
           expect(() => {
@@ -227,6 +295,129 @@ describe("Unit Test", () => {
         });
       });
     });
-    //ValidateGateway should not throw error if input object is good
+  });
+
+  describe("Testing ValidateDevice function", () => {
+    //input object structure:
+    //{
+    // uid: Number,
+    // vendor: String,
+    // status: (online/offline) String
+    //}
+    describe("ValidateDevice function should throw an error if", () => {
+      //ValidateDevice function should throw an error if input object has a missing property
+      it("Input object has no 'uid' property", () => {
+        const input = {
+          vendor: "qwerty",
+          status: "online",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+      it("Input object has no 'vendor' property", () => {
+        const input = {
+          uid: 1,
+          status: "online",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+      it("Input object has no 'status' property", () => {
+        const input = {
+          uid: 1,
+          vendor: "qwerty",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+
+      //ValidateDevice function should throw an error if input object has an empty property
+      it("Input object has empty 'uid' value", () => {
+        const input = {
+          uid: null,
+          vendor: "qwerty",
+          status: "online",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+      it("Input object has empty 'vendor' value", () => {
+        const input = {
+          uid: 1,
+          vendor: "",
+          status: "online",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+      it("Input object has empty 'status' value", () => {
+        const input = {
+          uid: 1,
+          vendor: "qwerty",
+          status: "",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+
+      //ValidateDevice function should throw an error if input object has a wrong value data type
+      it("Input object has wrong 'uid' value data type", () => {
+        const input = {
+          uid: "asd",
+          vendor: "qwerty",
+          status: "online",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+      it("Input object has wrong 'vendor' value data type", () => {
+        const input = {
+          uid: 1,
+          vendor: 1,
+          status: "online",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+      it("Input object has wrong 'status' value data type", () => {
+        const input = {
+          uid: 1,
+          vendor: "qwerty",
+          status: 1,
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Missing Device Data");
+      });
+
+      //ValidateDevice function should throw an error if 'status' property has a wrong value
+      it("Input object has wrong 'status' value", () => {
+        const input = {
+          uid: 1,
+          vendor: "qwerty",
+          status: "connected",
+        };
+        expect(() => {
+          ValidateDevice(input);
+        }).to.throw("Bad Device Status");
+      });
+    });
+    describe("ValidateDevice function should not throw an error if:", () => {
+      deviceArr.forEach((device) => {
+        it(`Input a valid device object: ${JSON.stringify(device)}`, () => {
+          expect(() => {
+            ValidateDevice(device);
+          }).not.throw();
+        });
+      });
+    });
   });
 });

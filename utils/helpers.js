@@ -36,15 +36,13 @@ function ValidateDevice(device) {
     !device.vendor ||
     !device.status ||
     typeof device.vendor !== "string" ||
-    typeof device.status !== "string"
+    typeof device.status !== "string" ||
+    typeof device.uid !== "number"
   ) {
     throw new GatewayError("Missing Device Data", 400);
   }
   if (!/online|offline/.test(device.status)) {
     throw new GatewayError("Bad Device Status", 400);
-  }
-  if (typeof device.uid !== "number") {
-    throw new GatewayError("Bad Device UID", 400);
   }
 }
 

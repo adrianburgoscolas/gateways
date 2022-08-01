@@ -175,3 +175,5 @@ const port = process.env.NODE_ENV === "development" ? 3001 : process.env.PORT;
 app.listen(port, () => {
   console.log("listening on port: " + port);
 });
+
+module.exports = app;
