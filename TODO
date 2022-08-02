@@ -9,6 +9,7 @@ Backend
 - add ValidateDevice function DONE
 - add Unit test DONE
 - change integration test on /api/getgateway to method post
+- change integration test on /api/delgateway to method post
 
 Frontend
 - add Basic UI

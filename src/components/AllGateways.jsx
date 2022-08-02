@@ -22,6 +22,6 @@ export default function AllGateways() {
   if(!data[0]) {
     return <h4>Loading...</h4>
   } else {
-    return (<ul className="list left">{list}</ul>);
+    return (<ul className="list centered">{list}</ul>);
   }
 }
