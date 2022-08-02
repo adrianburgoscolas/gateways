@@ -46,7 +46,7 @@ app.post("/api/addgateway", async (req, res) => {
 //{
 //  gatewaySerial: String
 //}
-app.get("/api/getgateway", async (req, res) => {
+app.post("/api/getgateway", async (req, res) => {
   try {
     if (!req.body.gatewaySerial || typeof req.body.gatewaySerial !== "string") {
       throw new GatewayError("Missing Gateway Data", 400);

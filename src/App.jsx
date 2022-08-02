@@ -1,7 +1,9 @@
 import Navbar from "./components/Navbar";
-import AllGateways from "./components/AllGateways"
+import AllGateways from "./components/AllGateways";
+import AddGateway from "./components/AddGateway";
+import GetGateway from "./components/GetGateway";
 import "./styles/utils.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const navButtons = [
   "List Gateways",
@@ -14,11 +16,6 @@ const navButtons = [
 
 export default function App() {
   const [navState, setNavState] = useState("Gateways");
-  useEffect(() => {
-    if(navState) {
-      console.log(navState)
-    }
-  });
   document.title = navState;
   return (
     <div className="container">
@@ -29,6 +26,8 @@ export default function App() {
       <Navbar navButtons={navButtons} handleButton={setNavState} />
       <main className="centered">
         {navState === "List Gateways"? <AllGateways /> : ""}
+        {navState === "Add Gateway"? <AddGateway /> : ""}
+        {navState === "Get Gateway"? <GetGateway /> : ""}
       </main>
     </div>
   );

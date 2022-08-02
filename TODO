@@ -8,12 +8,13 @@ Backend
 - add ValidateGateway function DONE
 - add ValidateDevice function DONE
 - add Unit test DONE
+- change integration test on /api/getgateway to method post
 
 Frontend
 - add Basic UI
+- add Readme file with install guides
 - edit manifest.json
 - add app logo and favicon to public dir
 
 Production
 - add an automated build
-- add Readme file with install/usage guides
