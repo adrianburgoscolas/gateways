@@ -116,6 +116,7 @@ To run the Unit test and the Integration test, run the follwing command:
 
 ## Author
 
+- Portfolio - [Adrian Burgos, Full Stack Web Developer](https://adrianburgoscolas.github.io/portfolio/)
 - freeCodeCamp - [Adrian Burgos](https://www.freecodecamp.org/fcce3ec214d-b0f9-4ddc-b526-34aea3d1e4a3)
 - Frontend Mentor - [@adrianburgoscolas](https://www.frontendmentor.io/profile/adrianburgoscolas)
 - Linkedin - [linkedin.com/in/adrian-burgos-1776a6144](https://www.linkedin.com/in/adrian-burgos-1776a6144/)
