@@ -16,7 +16,6 @@
   - [Back-end](#back-end)
 - [Author](#author)
 
-
 ## Overview
 
 ### The task
@@ -72,12 +71,14 @@ Each gateway has:
 ### Local install
 
 Assuming NodeJS is already installed, decompress the file 'cd' into the folder and run:
-'npm install'
+
+    'npm install'
 
 ### Remote install
 
 Use Git to clone the project from its repository: [https://github.com/adrianburgoscolas/gateways](https://github.com/adrianburgoscolas/gateways) 'cd' into the folder and run:
-'npm install'
+
+    'npm install'
 
 ## Usage
 
