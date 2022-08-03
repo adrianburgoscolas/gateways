@@ -106,7 +106,7 @@ Run Nodemon by:
 
 If cloned the project from its repository, you must provide MongoDB credentials to access a database, this credentials must be added to environment variables via '.env' file on the root of the project or system environment variables, example:
 
-'MONGO_URI=mongodb+srv://<user>:<password>E@cluster0.3fnd7.mongodb.net/?retryWrites=true&w=majority'
+'MONGO_URI=mongodb+srv://<user>:<password>@cluster0.3fnd7.mongodb.net/?retryWrites=true&w=majority'
 
 ## Author
 
