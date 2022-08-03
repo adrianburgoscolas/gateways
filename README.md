@@ -108,6 +108,12 @@ If cloned the project from its repository, you must provide MongoDB credentials 
 
 'MONGO_URI=mongodb+srv://<user>:<password>@cluster0.3fnd7.mongodb.net/?retryWrites=true&w=majority'
 
+### Unit Test and Integration Test
+
+To run the Unit test and the Integration test, run the follwing command:
+
+'npm run nodetest'
+
 ## Author
 
 - freeCodeCamp - [Adrian Burgos](https://www.freecodecamp.org/fcce3ec214d-b0f9-4ddc-b526-34aea3d1e4a3)
