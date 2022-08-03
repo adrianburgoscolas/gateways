@@ -23,8 +23,8 @@ export default function App() {
   return (
     <div className="container">
       <header className="centered">
-        <h1 className="headingXL">Gateways</h1>
-        <p>Control your devices</p>
+        <h1 className="headingXL text-dark">Gateways</h1>
+        <p className="text-light">Control your devices</p>
       </header>
       <Navbar navButtons={navButtons} handleButton={setNavState} />
       <main className="centered">

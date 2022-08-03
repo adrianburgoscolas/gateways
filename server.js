@@ -7,6 +7,7 @@ const {
   ValidateDevice,
   GatewayError,
 } = require("./utils/helpers");
+const path = require("path");
 
 require("dotenv").config();
 
@@ -16,8 +17,10 @@ app.use(express.json());
 //CORS allow all origin
 app.use(cors());
 
+app.use(express.static(path.join(__dirname, "./build")));
+
 app.get("/", (_, res) => {
-  res.send("hola");
+  res.sendFile(path.join(__dirname, "./build", "index.html"));
 });
 
 //API entry point to add a new gateway without devices.

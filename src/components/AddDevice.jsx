@@ -68,9 +68,9 @@ export default function DelDevice() {
           value={vendor} 
           onChange={e => setVendor(e.currentTarget.value)} 
         />
-        <fieldset className="left">
+        <fieldset className="left button">
           <legend>Device status:</legend>
-          <div>
+          <div className="left">
             <input 
               type="radio" 
               name="status"
@@ -81,7 +81,7 @@ export default function DelDevice() {
             />
             <label for="online">Oline</label>
           </div>
-          <div>
+          <div className="left">
             <input 
               type="radio" 
               name="status"

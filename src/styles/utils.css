@@ -1,8 +1,17 @@
 .container {
-  max-width: 36rem;
+  max-width: 40rem;
   margin: 3rem auto 6rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
 }
 
+.border {
+  border-color: #ded8d8;
+  border: solid;
+  border-radius: 0.75rem;
+  border-width: 0.25rem;
+}
 .centered {
   text-align: center;
 }
@@ -29,9 +38,10 @@
 }
 
 .navbar {
-  padding: 0;
+  padding: 0 0 1rem;
   margin: 0;
   display: flex;
+  gap: 0.5rem;
   justify-content: center;
   list-style: none;
 }
@@ -41,6 +51,28 @@
   margin: 0;
 }
 
+.button,
+input {
+  text-align: center;
+  padding: 0.5rem;
+  border: solid #ded8d8;
+  border-radius: 0.75rem;
+  border-width: 0.125rem;
+  background-color: white;
+  transition: all 250ms;
+}
+
+.button:hover {
+  background-color: #ded8d8;
+  transition: all 250ms;
+}
+
+input[type="submit"]:hover {
+  background-color: #ded8d8;
+  transition: all 250ms;
+  color: #434141;
+}
+
 .background {
   background-color: aqua;
 }
@@ -48,18 +80,26 @@
 .listItem {
   margin: 0 0 1.25rem;
   padding: 0.5rem;
-  background-color: aquamarine;
 }
 
 .list {
   list-style: none;
-  margin: 0;
+  margin: 1rem 0 0 0;
   padding: 0;
 }
 
 .form {
   margin: auto;
   display: flex;
+  gap: 0.5rem;
   flex-direction: column;
   max-width: 15rem;
+}
+
+.text-dark {
+  color: #434141;
+}
+
+.text-light {
+  color: #6f6c6c;
 }

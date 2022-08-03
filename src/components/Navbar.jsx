@@ -3,6 +3,7 @@ export default function Navbar({navButtons, handleButton}) {
 
   const buttonList = navButtons.map((navButton, i) => <li className="navbutton" key={i}>
     <input 
+      className="button text-dark"
       type="submit" 
       value={navButton}
       onClick={(e) => handleButton(e.currentTarget.value)} 

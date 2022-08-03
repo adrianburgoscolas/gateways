@@ -5,11 +5,11 @@ export default function AllGateways() {
 
   const [data, setData] = useState([]);
 
-  const list = data.map( (gw, i) => <li className="listItem" key={i}>
+  const list = data.map( (gw, i) => <li className="listItem button" key={i}>
       <section>
-        <h4 className="listheading">Gateway {gw.gatewayName}</h4>
-        <p className="text">Serial number {gw.gatewaySerial}</p>
-        <p className="text">Devices {gw.associatedDevices}</p>
+        <h4 className="listheading text-dark">Gateway {gw.gatewayName}</h4>
+        <p className="text text-light">Serial number {gw.gatewaySerial}</p>
+        <p className="text text-light">Devices {gw.associatedDevices}</p>
       </section>
     </li> );
 

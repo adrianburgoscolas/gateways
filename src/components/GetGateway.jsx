@@ -32,11 +32,11 @@ export default function AddGateway() {
   }
   let devices
   if(data){
-    devices = data.devices.map((device, i) => <li className="listItem" key={i}>
-      <h3 className="listheading">{`device: ${device.uid}`}</h3>
-      <div>{`vendor: ${device.vendor}`}</div>
-      <div>{`date created: ${device.datecreated}`}</div>
-      <div>{`status: ${device.status}`}</div>
+    devices = data.devices.map((device, i) => <li className="listItem button" key={i}>
+      <h3 className="listheading text-dark">{`device: ${device.uid}`}</h3>
+      <div className="text-light">{`vendor: ${device.vendor}`}</div>
+      <div className="text-light">{`date created: ${device.datecreated}`}</div>
+      <div className="text-light">{`status: ${device.status}`}</div>
       </li>);
   }
   return (
@@ -50,12 +50,12 @@ export default function AddGateway() {
         />
         <input type="submit" value="Submit"/>
       </form>
-      <h3 className="heading">
+      <h3 className="heading text-dark">
         {error?error:""}
         {data?`Gateway '${data.gatewayname}'`:""}
       </h3>
-      <div>{data?`Serial number: ${data.gatewayserial}`:""}</div>
-      <div>{data?`Ipv4 address: ${data.ipv4}`:""}</div>
+      <div className="text-light">{data?`Serial number: ${data.gatewayserial}`:""}</div>
+      <div className="text-light">{data?`Ipv4 address: ${data.ipv4}`:""}</div>
       <ul className="list">{devices}</ul>
     </div>
   );

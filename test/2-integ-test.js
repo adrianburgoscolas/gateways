@@ -1,4 +1,5 @@
 process.env.NODE_ENV = "test";
+process.env.PORT = 3300;
 const { expect } = require("chai");
 const chai = require("chai");
 const chaiHttp = require("chai-http");
