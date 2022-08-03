@@ -84,11 +84,7 @@ Use Git to clone the project from its repository: [https://github.com/adrianburg
 
 ### Front-end
 
-You can use the development server for the front-end (ReactJS) by running:
-
-    'npm run front'
-
-For production run the following command to get a production build:
+Run the following command to get a production build of the front-end (to get the UI):
 
     'npm run build'
 
@@ -96,15 +92,21 @@ For production run the following command to get a production build:
 
 By default the server use '.env' file to set environment variables to development, while in development the server start lisstening on port 3001. For production you can edit '.env' file to set 'NODE_ENV' to production: 'NODE_ENV=production', and set 'PORT' variable with your custom port to listen: 'PORT=<port>'. You can also set the same variables on your system environment to achieve the same results.
 
+Run the server by:
+
+    'npm run node'
+
 In development you can dynamically reload the server after saving the changes by tuning 'nodemon':
 
 Run Nodemon by:
 
     'npm run nodemon'
 
-Run the server by:
+### From remote install
 
-    'npm run node'
+If cloned the project from its repository, you must provide MongoDB credentials to access a database, this credentials must be added to environment variables via '.env' file on the root of the project or system environment variables, example:
+
+'MONGO_URI=mongodb+srv://<user>:<password>E@cluster0.3fnd7.mongodb.net/?retryWrites=true&w=majority'
 
 ## Author
 
