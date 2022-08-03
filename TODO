@@ -2,20 +2,19 @@ Backend
 - add addgateway api DONE
 - add getgateway api DONE
 - add adddevice api DONE
-- add getallgateways api
+- add getallgateways api DONE
 - add delgateway api DONE
 - add deldevice api DONE
 - add ValidateGateway function DONE
 - add ValidateDevice function DONE
 - add Unit test DONE
-- change integration test on /api/getgateway to method post
-- change integration test on /api/delgateway to method post
+- add Integration test DONE
 
 Frontend
-- add Basic UI
-- add Readme file with install guides
-- edit manifest.json
-- add app logo and favicon to public dir
+- add Basic UI DONE
+- add Readme file with install guides DONE
+- edit manifest.json DONE
+- add app logo and favicon to public dir DONE
 
 Production
-- add an automated build
+- add an automated build DONE
