@@ -51,18 +51,21 @@ export default function DelDevice() {
     <div>
       <form onSubmit={sendForm} className="form">
         <input 
+          required
           type="text" 
           placeholder="Gateway Serial Number" 
           value={gatewaySerial} 
           onChange={e => setSerial(e.currentTarget.value)} 
         />
         <input 
+          required
           type="number" 
           placeholder="Device Uid" 
           value={uid} 
           onChange={handleUid} 
         />
         <input 
+          required
           type="text" 
           placeholder="Device Vendor" 
           value={vendor} 

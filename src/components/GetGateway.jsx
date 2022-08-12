@@ -43,6 +43,7 @@ export default function AddGateway() {
     <div>
       <form onSubmit={sendForm} className="form">
         <input 
+          required
           type="text" 
           placeholder="Gateway Serial Number" 
           value={gatewaySerial} 

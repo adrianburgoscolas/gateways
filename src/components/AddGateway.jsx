@@ -41,18 +41,21 @@ export default function AddGateway() {
     <div>
       <form onSubmit={sendForm} className="form">
         <input 
+          required
           type="text" 
           placeholder="Gateway Serial Number" 
           value={gatewaySerial} 
           onChange={e => setSerial(e.currentTarget.value)} 
         />
         <input 
+          required
           type="text" 
           placeholder="Gateway Name" 
           value={gatewayName} 
           onChange={e => setName(e.currentTarget.value)} 
         />
         <input 
+          required
           type="text" 
           placeholder="Gateway Ipv4 Address" 
           value={ipv4} 

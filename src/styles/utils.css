@@ -46,6 +46,14 @@
   list-style: none;
 }
 
+@media only screen and (max-width: 600px) {
+  .navbar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    justify-items: center;
+  }
+}
+
 .navbutton {
   padding: 0;
   margin: 0;
@@ -53,6 +61,7 @@
 
 .button,
 input {
+  font-size: 0.5rem;
   text-align: center;
   padding: 0.5rem;
   border: solid #ded8d8;
@@ -102,4 +111,25 @@ input[type="submit"]:hover {
 
 .text-light {
   color: #6f6c6c;
+}
+
+@media only screen and (min-width: 1920px) {
+  body,
+  html {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (min-width: 2560px) {
+  body,
+  html {
+    font-size: 40px;
+  }
+}
+
+@media only screen and (min-width: 3840px) {
+  body,
+  html {
+    font-size: 50px;
+  }
 }
