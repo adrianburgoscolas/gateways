@@ -14,7 +14,7 @@ export default function DelDevice() {
     e.preventDefault();
     setError();
     setData();
-    fetch("/api/adddevice",{
+    fetch("https://gateways.onrender.com/api/adddevice",{
       method: "PUT",
       headers: {"Content-Type": "application/json"},
       body : JSON.stringify({gatewaySerial, device:{uid: Number(uid), vendor, status}}),

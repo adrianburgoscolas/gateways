@@ -12,7 +12,7 @@ export default function DelDevice() {
     e.preventDefault();
     setError();
     setData();
-    fetch("/api/deldevice",{
+    fetch("https://gateways.onrender.com/api/deldevice",{
       method: "PUT",
       headers: {"Content-Type": "application/json"},
       body : JSON.stringify({gatewaySerial, device:{uid: Number(uid)}}),

@@ -10,7 +10,7 @@ export default function AddGateway() {
     e.preventDefault();
     setError();
     setData();
-    fetch("/api/getgateway",{
+    fetch("https://gateways.onrender.com/api/getgateway",{
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body : JSON.stringify({gatewaySerial}),

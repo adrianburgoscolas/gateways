@@ -14,7 +14,7 @@ export default function AllGateways() {
     </li> );
 
   useEffect(() => {
-      fetch("/api/getallgateways")
+      fetch("https://gateways.onrender.com/api/getallgateways")
         .then(res => res.json())
         .then(res => setData(res));
     // eslint-disable-next-line

@@ -10,7 +10,7 @@ export default function GetGateway() {
     e.preventDefault();
     setError();
     setData();
-    fetch("/api/delgateway",{
+    fetch("https://gateways.onrender.com/api/delgateway",{
       method: "DELETE",
       headers: {"Content-Type": "application/json"},
       body : JSON.stringify({gatewaySerial}),
