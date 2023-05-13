@@ -1,8 +1,8 @@
 import "../styles/utils.css";
 import { useState } from "react";
 
-export default function GetGateway() {
-  const [gatewaySerial, setSerial] = useState("");
+export default function GetGateway({gatewayId}) {
+  const [gatewaySerial, setSerial] = useState(gatewayId);
   const [data, setData] = useState();
   const [error, setError] = useState();
 

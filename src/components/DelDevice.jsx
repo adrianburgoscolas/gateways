@@ -1,8 +1,8 @@
 import "../styles/utils.css";
 import { useState } from "react";
 
-export default function DelDevice() {
-  const [gatewaySerial, setSerial] = useState("");
+export default function DelDevice({gatewayId}) {
+  const [gatewaySerial, setSerial] = useState(gatewayId);
   const [uid, setUid] = useState("");
   const [stateUid, setStateUid] = useState();
   const [data, setData] = useState();

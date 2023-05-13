@@ -1,17 +1,19 @@
 import { useState, useEffect } from "react";
 import "../styles/utils.css"
 
-export default function AllGateways() {
+export default function AllGateways({handleGatewayId}) {
 
   const [data, setData] = useState([]);
 
-  const list = data.map( (gw, i) => <li className="listItem button" key={i}>
+  const list = data.map( (gw, i) => 
+    <li className="listItem button" key={i} onClick={_ => handleGatewayId(gw.gatewaySerial)}>
       <section>
         <h4 className="listheading text-dark">Gateway {gw.gatewayName}</h4>
         <p className="text text-light">Serial number {gw.gatewaySerial}</p>
         <p className="text text-light">Devices {gw.associatedDevices}</p>
       </section>
-    </li> );
+    </li> 
+  );
 
   useEffect(() => {
       fetch("https://gateways.onrender.com/api/getallgateways")

@@ -59,6 +59,10 @@
   margin: 0;
 }
 
+.button {
+  cursor: pointer;
+}
+
 .button,
 input {
   font-size: 0.5rem;
@@ -71,7 +75,7 @@ input {
   transition: all 250ms;
 }
 
-.button:hover {
+.button:hover,:focus {
   background-color: #ded8d8;
   transition: all 250ms;
 }
